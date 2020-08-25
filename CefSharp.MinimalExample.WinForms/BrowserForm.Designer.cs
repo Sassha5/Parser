@@ -134,6 +134,9 @@
             // 
             // listView
             // 
+            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Song,
             this.Artist,
@@ -142,9 +145,10 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(13, 57);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(262, 496);
+            this.listView.Size = new System.Drawing.Size(827, 496);
             this.listView.TabIndex = 5;
             this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.List;
             // 
             // BrowserForm
             // 

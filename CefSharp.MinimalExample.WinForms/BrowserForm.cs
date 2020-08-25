@@ -20,13 +20,10 @@ namespace CefSharp.MinimalExample.WinForms
 
             browser = new ChromiumWebBrowser("https://moov.hk/#/chart/PC1000000014");
             toolStripContainer.ContentPanel.Controls.Add(browser);
-            //browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged; ;
+            listView.View = View.Details;
+            //listView.HeaderStyle = ColumnHeaderStyle.None;
+            listView.GridLines = true;
         }
-
-        //private void Browser_IsBrowserInitializedChanged(object sender, EventArgs e)
-        //{
-        //    button1_Click(this, new EventArgs());
-        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
