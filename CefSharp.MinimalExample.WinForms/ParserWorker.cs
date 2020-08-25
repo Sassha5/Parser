@@ -3,17 +3,17 @@ using CefSharp.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace CefSharp.MinimalExample.WinForms
 {
     class ParserWorker<T> where T : class
     {
-        public IParser<T> Parser { get; set; }
+        public MoovParser<T> Parser { get; set; }
 
+        public event Action<object, ListViewItem[]> OnNewData;
 
-        public event Action<object, T> OnNewData;
-
-        public ParserWorker(IParser<T> parser)
+        public ParserWorker(MoovParser<T> parser)
         {
             this.Parser = parser;
         }

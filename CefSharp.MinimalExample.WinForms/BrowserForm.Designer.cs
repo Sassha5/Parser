@@ -33,8 +33,12 @@
             this.statusLabel = new System.Windows.Forms.Label();
             this.outputLabel = new System.Windows.Forms.Label();
             this.parseButton = new System.Windows.Forms.Button();
-            this.titleslistBox = new System.Windows.Forms.ListBox();
             this.exitButton = new System.Windows.Forms.Button();
+            this.listView = new System.Windows.Forms.ListView();
+            this.Song = new System.Windows.Forms.ColumnHeader();
+            this.Artist = new System.Windows.Forms.ColumnHeader();
+            this.Album = new System.Windows.Forms.ColumnHeader();
+            this.Duration = new System.Windows.Forms.ColumnHeader();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,15 +122,6 @@
             this.parseButton.UseVisualStyleBackColor = true;
             this.parseButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // titleslistBox
-            // 
-            this.titleslistBox.FormattingEnabled = true;
-            this.titleslistBox.ItemHeight = 15;
-            this.titleslistBox.Location = new System.Drawing.Point(13, 57);
-            this.titleslistBox.Name = "titleslistBox";
-            this.titleslistBox.Size = new System.Drawing.Size(156, 484);
-            this.titleslistBox.TabIndex = 3;
-            // 
             // exitButton
             // 
             this.exitButton.Location = new System.Drawing.Point(94, 27);
@@ -137,13 +132,27 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // listView
+            // 
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Song,
+            this.Artist,
+            this.Album,
+            this.Duration});
+            this.listView.HideSelection = false;
+            this.listView.Location = new System.Drawing.Point(13, 57);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(262, 496);
+            this.listView.TabIndex = 5;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            // 
             // BrowserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 565);
+            this.Controls.Add(this.listView);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.titleslistBox);
             this.Controls.Add(this.parseButton);
             this.Controls.Add(this.toolStripContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -162,7 +171,11 @@
         private System.Windows.Forms.Label outputLabel;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Button parseButton;
-        private System.Windows.Forms.ListBox titleslistBox;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.ColumnHeader Song;
+        private System.Windows.Forms.ColumnHeader Artist;
+        private System.Windows.Forms.ColumnHeader Album;
+        private System.Windows.Forms.ColumnHeader Duration;
     }
 }

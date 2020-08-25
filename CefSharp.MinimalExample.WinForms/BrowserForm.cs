@@ -30,16 +30,16 @@ namespace CefSharp.MinimalExample.WinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ParserWorker<string[]> parser = new ParserWorker<string[]>(new MoovParser());
+            ParserWorker<ListViewItem[]> parser = new ParserWorker<ListViewItem[]>(new MoovParser<ListViewItem[]>());
 
             parser.OnNewData += Parser_OnNewData;
 
             parser.Start(browser);
         }
 
-        private void Parser_OnNewData(object arg1, string[] arg2)
+        private void Parser_OnNewData(object arg1, ListViewItem[] arg2)
         {
-            titleslistBox.Items.AddRange(arg2);
+            listView.Items.AddRange(arg2);
         }
 
         private void exitButton_Click(object sender, EventArgs e)
