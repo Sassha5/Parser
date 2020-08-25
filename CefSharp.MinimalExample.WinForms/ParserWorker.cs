@@ -11,7 +11,7 @@ namespace CefSharp.MinimalExample.WinForms
     {
         public MoovParser<T> Parser { get; set; }
 
-        public event Action<object, ListViewItem[]> OnNewData;
+        public event Action<object, Song[], ImageList> OnNewData;
 
         public ParserWorker(MoovParser<T> parser)
         {
@@ -25,8 +25,9 @@ namespace CefSharp.MinimalExample.WinForms
 
             var document = await domParser.ParseDocumentAsync(source);
 
-            var result = Parser.Parse(document);
-            OnNewData?.Invoke(this, result);
+            ImageList imageList;
+            var result = Parser.Parse(document, out imageList);
+            OnNewData?.Invoke(this, result, imageList);
         }
     }
 }

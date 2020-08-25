@@ -10,43 +10,29 @@ namespace CefSharp.MinimalExample.WinForms
 {
     class MoovParser<T> where T : class
     {
-        public ListViewItem[] Parse(IHtmlDocument document)
+        Song[] songArray;
+        IHtmlDocument document;
+        public Song[] Parse(IHtmlDocument document, out ImageList imageList)
         {
-            string[] selectors = { "div.l-r div.song", "div.l-r div.artist", "div.l-r div.album", "div.l-r div.duration" };
-            int itemCount = document.QuerySelectorAll("div.l-r").Length;
-            ListViewItem[] listItems = new ListViewItem[itemCount];
-            string[][] array = new string[selectors.Length][];
+            //string[] selectors = { "div.l-r div.song", "div.l-r div.artist", "div.l-r div.album", "div.l-r div.duration" };
+            var items = document.QuerySelectorAll("div.l-r");
+            imageList = null;
+            
+            this.document = document;
+            songArray = new Song[items.Length];
+            
+            ParseSongNames();
 
-            for (int i = 0; i < selectors.Length; i++)
-            {
-                var items = document.QuerySelectorAll(selectors[i]);//.Where(item => item.ClassName != null );
-                array[i] = Help(items);
-            }
-
-            for (int j = 0; j < itemCount; j++)
-            {
-                string[] t = new string[selectors.Length];
-                for (int i = 0; i < selectors.Length; i++)
-                {
-                    t[i] = array[i][j];
-                }
-                ListViewItem listItem = new ListViewItem(t);
-                if (listItem != null && listItem.Text != "")
-                {
-                    listItems[j] = listItem;
-                }
-            }
-            return listItems;
+            return songArray;
         }
 
-        private string[] Help(IHtmlCollection<IElement> items)// => items.Select(x => x.ToString()).ToArray();
+        private void ParseSongNames()
         {
-            string[] str = new string[items.Length];
+            var items = document.QuerySelectorAll("div.l-r div.song, div.artist, div.album, div.duration");
             for (int i = 0; i < items.Length; i++)
             {
-                str[i] = items[i].TextContent;
+                songArray[i] = new Song(items[i].TextContent);
             }
-            return str;
         }
     }
 }
