@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CefSharp.MinimalExample.WinForms
@@ -13,7 +14,7 @@ namespace CefSharp.MinimalExample.WinForms
     class MoovParser<T> where T : class
     {
         IHtmlDocument document;
-        public List<Song> Parse(IHtmlDocument document, out ImageList imageList)
+        public List<Song> Parse(IHtmlDocument document)
         {
             this.document = document;
             var items = document.QuerySelectorAll("div.l-r").Select(x => new Song()
@@ -23,46 +24,44 @@ namespace CefSharp.MinimalExample.WinForms
                 Album = x.QuerySelector(".album").TextContent,
                 Duration = TimeSpan.Parse(x.QuerySelector(".duration").TextContent)
             }).ToList();
-            imageList = new ImageList();
-            imageList.ImageSize = new Size(64, 64);
-            FillImageList(imageList);
+
             return items;
         }
 
-        private ImageList FillImageList(ImageList imgList)
+        public async Task<ImageList> ParseImagesAsync()
         {
+            ImageList imageList = new ImageList();
+            imageList.ImageSize = new Size(64, 64);
+
             var src = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)");
             List<string> source = new List<string>();
             foreach (IElement item in src)
             {
                 source.Add(((IHtmlImageElement)item).Source);
             }
-            string link = source[0]; //delete
-            //foreach (string link in source)
-            //{
-                System.Net.WebRequest request = System.Net.WebRequest.Create(link);
-                System.Net.WebResponse resp = request.GetResponse();
-                System.IO.Stream respStream = resp.GetResponseStream();
-                Bitmap bmp = new Bitmap(respStream);
-                respStream.Dispose();
 
-                imgList.Images.Add(bmp);
-            //}
-            return imgList;
-            //using (var client = new HttpClient())
-            //{
-            //    var src = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)");
-            //    foreach (IElement(IHtmlImageElement)item in src)
-            //    {
-            //        using (var response = await client.GetAsync(item.Source))
-            //        {
-            //            using (var source = await response.Content.ReadAsStreamAsync())
-            //            {
-            //                imgList.Images.Add(Image.FromStream(source));
-            //            }
-            //        }
-            //    }
-            //}
+            await foreach (Bitmap bmp in GetImagesAsync(source))
+            {
+                imageList.Images.Add(bmp);
+            }
+
+            return imageList;
+        }
+
+        private async IAsyncEnumerable<Bitmap> GetImagesAsync(List<string> links)
+        {
+            foreach (string link in links)
+            {
+                yield return await Task.Run(() =>
+                {
+                    System.Net.WebRequest request = System.Net.WebRequest.Create(link);
+                    System.Net.WebResponse resp = request.GetResponse();
+                    System.IO.Stream respStream = resp.GetResponseStream();
+                    Bitmap bmp = new Bitmap(respStream);
+                    respStream.Dispose();
+                    return bmp;
+                });
+            }
         }
     }
 }

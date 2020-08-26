@@ -36,7 +36,7 @@ namespace CefSharp.MinimalExample.WinForms
             listView.SmallImageList = arg3;
             for (int i = 0; i< arg2.Count; i++)
             {
-                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray(), 0));//i
+                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray(), i));
             }
         }
 

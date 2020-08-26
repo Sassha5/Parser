@@ -25,8 +25,9 @@ namespace CefSharp.MinimalExample.WinForms
 
             var document = await domParser.ParseDocumentAsync(source);
 
-            ImageList imageList;
-            var result = Parser.Parse(document, out imageList);
+            var result = Parser.Parse(document);
+            ImageList imageList = await Parser.ParseImagesAsync();
+
             OnNewData?.Invoke(this, result, imageList);
         }
     }
