@@ -145,7 +145,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(13, 57);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(827, 496);
+            this.listView.Size = new System.Drawing.Size(302, 496);
             this.listView.TabIndex = 5;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.List;

@@ -2,7 +2,9 @@
 using AngleSharp.Html.Dom;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
 
@@ -10,29 +12,57 @@ namespace CefSharp.MinimalExample.WinForms
 {
     class MoovParser<T> where T : class
     {
-        Song[] songArray;
         IHtmlDocument document;
-        public Song[] Parse(IHtmlDocument document, out ImageList imageList)
+        public List<Song> Parse(IHtmlDocument document, out ImageList imageList)
         {
-            //string[] selectors = { "div.l-r div.song", "div.l-r div.artist", "div.l-r div.album", "div.l-r div.duration" };
-            var items = document.QuerySelectorAll("div.l-r");
-            imageList = null;
-            
             this.document = document;
-            songArray = new Song[items.Length];
-            
-            ParseSongNames();
-
-            return songArray;
+            var items = document.QuerySelectorAll("div.l-r").Select(x => new Song()
+            {
+                Name = x.QuerySelector(".song").TextContent,
+                Artist = x.QuerySelector(".artist").TextContent,
+                Album = x.QuerySelector(".album").TextContent,
+                Duration = TimeSpan.Parse(x.QuerySelector(".duration").TextContent)
+            }).ToList();
+            imageList = new ImageList();
+            imageList.ImageSize = new Size(64, 64);
+            FillImageList(imageList);
+            return items;
         }
 
-        private void ParseSongNames()
+        private ImageList FillImageList(ImageList imgList)
         {
-            var items = document.QuerySelectorAll("div.l-r div.song, div.artist, div.album, div.duration");
-            for (int i = 0; i < items.Length; i++)
+            var src = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)");
+            List<string> source = new List<string>();
+            foreach (IElement item in src)
             {
-                songArray[i] = new Song(items[i].TextContent);
+                source.Add(((IHtmlImageElement)item).Source);
             }
+            string link = source[0]; //delete
+            //foreach (string link in source)
+            //{
+                System.Net.WebRequest request = System.Net.WebRequest.Create(link);
+                System.Net.WebResponse resp = request.GetResponse();
+                System.IO.Stream respStream = resp.GetResponseStream();
+                Bitmap bmp = new Bitmap(respStream);
+                respStream.Dispose();
+
+                imgList.Images.Add(bmp);
+            //}
+            return imgList;
+            //using (var client = new HttpClient())
+            //{
+            //    var src = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)");
+            //    foreach (IElement(IHtmlImageElement)item in src)
+            //    {
+            //        using (var response = await client.GetAsync(item.Source))
+            //        {
+            //            using (var source = await response.Content.ReadAsStreamAsync())
+            //            {
+            //                imgList.Images.Add(Image.FromStream(source));
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 }

@@ -4,6 +4,7 @@
 
 using CefSharp.WinForms;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CefSharp.MinimalExample.WinForms
@@ -30,12 +31,12 @@ namespace CefSharp.MinimalExample.WinForms
             parser.Start(browser);
         }
 
-        private void Parser_OnNewData(object arg1, Song[] arg2, ImageList arg3)
+        private void Parser_OnNewData(object arg1, List<Song> arg2, ImageList arg3)
         {
-            listView.LargeImageList = arg3;
-            for (int i = 0; i< arg2.Length; i++)
+            listView.SmallImageList = arg3;
+            for (int i = 0; i< arg2.Count; i++)
             {
-                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray(), i));
+                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray(), 0));//i
             }
         }
 

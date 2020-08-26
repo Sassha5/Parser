@@ -11,7 +11,7 @@ namespace CefSharp.MinimalExample.WinForms
     {
         public MoovParser<T> Parser { get; set; }
 
-        public event Action<object, Song[], ImageList> OnNewData;
+        public event Action<object, List<Song>, ImageList> OnNewData;
 
         public ParserWorker(MoovParser<T> parser)
         {
