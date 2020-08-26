@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,28 +41,28 @@ namespace CefSharp.MinimalExample.WinForms
                 source.Add(((IHtmlImageElement)item).Source);
             }
 
-            await foreach (Bitmap bmp in GetImagesAsync(source))
+            List<Task<Bitmap>> bitmaps = new List<Task<Bitmap>>();
+            foreach (string link in source)
+            {
+                bitmaps.Add(Task.Run(() => GetImage(link))) ;
+            }
+            
+            Bitmap[] bmpList = await Task.WhenAll(bitmaps);
+            foreach (Bitmap bmp in bmpList)
             {
                 imageList.Images.Add(bmp);
             }
-
             return imageList;
         }
 
-        private async IAsyncEnumerable<Bitmap> GetImagesAsync(List<string> links)
+        private Bitmap GetImage(string link)
         {
-            foreach (string link in links)
-            {
-                yield return await Task.Run(() =>
-                {
-                    System.Net.WebRequest request = System.Net.WebRequest.Create(link);
-                    System.Net.WebResponse resp = request.GetResponse();
-                    System.IO.Stream respStream = resp.GetResponseStream();
-                    Bitmap bmp = new Bitmap(respStream);
-                    respStream.Dispose();
-                    return bmp;
-                });
-            }
+                WebRequest request = WebRequest.Create(link);
+                WebResponse resp = request.GetResponse();
+                System.IO.Stream respStream = resp.GetResponseStream();
+                Bitmap bmp = new Bitmap(respStream);
+                respStream.Dispose();
+                return bmp;
         }
     }
 }
