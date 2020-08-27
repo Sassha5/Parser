@@ -59,7 +59,7 @@
             this.toolStripContainer.ContentPanel.Controls.Add(this.statusLabel);
             this.toolStripContainer.ContentPanel.Controls.Add(this.outputLabel);
             this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(999, 622);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(784, 561);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // 
@@ -82,7 +82,7 @@
             this.toolStripContainer.RightToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.toolStripContainer.RightToolStripPanel.Visible = false;
             this.toolStripContainer.RightToolStripPanelVisible = false;
-            this.toolStripContainer.Size = new System.Drawing.Size(999, 622);
+            this.toolStripContainer.Size = new System.Drawing.Size(784, 561);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -98,7 +98,7 @@
             // 
             this.statusLabel.AutoSize = true;
             this.statusLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusLabel.Location = new System.Drawing.Point(0, 592);
+            this.statusLabel.Location = new System.Drawing.Point(0, 531);
             this.statusLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(0, 15);
@@ -108,7 +108,7 @@
             // 
             this.outputLabel.AutoSize = true;
             this.outputLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.outputLabel.Location = new System.Drawing.Point(0, 607);
+            this.outputLabel.Location = new System.Drawing.Point(0, 546);
             this.outputLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.outputLabel.Name = "outputLabel";
             this.outputLabel.Size = new System.Drawing.Size(0, 15);
@@ -117,7 +117,7 @@
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.Location = new System.Drawing.Point(906, 12);
+            this.exitButton.Location = new System.Drawing.Point(691, 12);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(81, 23);
             this.exitButton.TabIndex = 4;
@@ -138,7 +138,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(12, 41);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(975, 569);
+            this.listView.Size = new System.Drawing.Size(760, 508);
             this.listView.TabIndex = 5;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.List;
@@ -166,7 +166,7 @@
             this.textBoxToParse.Location = new System.Drawing.Point(12, 12);
             this.textBoxToParse.MinimumSize = new System.Drawing.Size(100, 4);
             this.textBoxToParse.Name = "textBoxToParse";
-            this.textBoxToParse.Size = new System.Drawing.Size(807, 23);
+            this.textBoxToParse.Size = new System.Drawing.Size(592, 23);
             this.textBoxToParse.TabIndex = 6;
             // 
             // groupBox
@@ -180,14 +180,14 @@
             this.groupBox.Controls.Add(this.exitButton);
             this.groupBox.Location = new System.Drawing.Point(0, 0);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(999, 622);
+            this.groupBox.Size = new System.Drawing.Size(784, 561);
             this.groupBox.TabIndex = 9;
             this.groupBox.TabStop = false;
             // 
             // buttonParse
             // 
             this.buttonParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonParse.Location = new System.Drawing.Point(825, 12);
+            this.buttonParse.Location = new System.Drawing.Point(610, 12);
             this.buttonParse.Name = "buttonParse";
             this.buttonParse.Size = new System.Drawing.Size(75, 23);
             this.buttonParse.TabIndex = 8;
@@ -199,7 +199,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 622);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.toolStripContainer);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
