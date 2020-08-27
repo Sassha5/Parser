@@ -1,14 +1,13 @@
 ﻿using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
+using CefSharp;
 using CefSharp.WinForms;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CefSharp.MinimalExample.WinForms
+namespace MoovParserApp
 {
     class ParserWorker<T> where T : class
     {
@@ -22,12 +21,11 @@ namespace CefSharp.MinimalExample.WinForms
         public ParserWorker(MoovParser<T> parser)
         {
             Parser = parser;
-            TimeOut = 20;
+            TimeOut = 20; //wait seconds for page to load
         }
 
         public async void Start(ChromiumWebBrowser browser)
         {
-
             for (int i = 0; i < TimeOut; i++)
             {
                 var source = await browser.GetSourceAsync();
@@ -46,7 +44,7 @@ namespace CefSharp.MinimalExample.WinForms
 
         private async void Worker(IHtmlDocument document)
         {
-            List<Song> result = Parser.ParseAsync(document);
+            List<Song> result = Parser.Parse(document);
             OnNewData?.Invoke(this, result);
             ImageList imageList = await Parser.ParseImagesAsync(document);
             OnNewImages?.Invoke(this, imageList);

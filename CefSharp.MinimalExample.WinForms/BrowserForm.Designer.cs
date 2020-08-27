@@ -1,6 +1,6 @@
-﻿namespace CefSharp.MinimalExample.WinForms
+﻿namespace MoovParserApp
 {
-    partial class BrowserForm
+    partial class MoovParser
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowserForm));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusLabel = new System.Windows.Forms.Label();
             this.outputLabel = new System.Windows.Forms.Label();
@@ -39,11 +38,8 @@
             this.Album = new System.Windows.Forms.ColumnHeader();
             this.Duration = new System.Windows.Forms.ColumnHeader();
             this.textBoxToParse = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonParse = new System.Windows.Forms.Button();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.buttonExit = new System.Windows.Forms.Button();
-            this.parseButton = new System.Windows.Forms.Button();
+            this.buttonParse = new System.Windows.Forms.Button();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
@@ -121,7 +117,7 @@
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.Location = new System.Drawing.Point(1638, 12);
+            this.exitButton.Location = new System.Drawing.Point(906, 12);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(81, 23);
             this.exitButton.TabIndex = 4;
@@ -168,38 +164,16 @@
             this.textBoxToParse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxToParse.Location = new System.Drawing.Point(12, 12);
-            this.textBoxToParse.MinimumSize = new System.Drawing.Size(100, 0);
+            this.textBoxToParse.MinimumSize = new System.Drawing.Size(100, 4);
             this.textBoxToParse.Name = "textBoxToParse";
-            this.textBoxToParse.Size = new System.Drawing.Size(812, 23);
+            this.textBoxToParse.Size = new System.Drawing.Size(807, 23);
             this.textBoxToParse.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-235, -87);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Moov link to parse";
-            // 
-            // buttonParse
-            // 
-            this.buttonParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonParse.Location = new System.Drawing.Point(1557, 12);
-            this.buttonParse.Name = "buttonParse";
-            this.buttonParse.Size = new System.Drawing.Size(75, 23);
-            this.buttonParse.TabIndex = 8;
-            this.buttonParse.Text = "Parse";
-            this.buttonParse.UseVisualStyleBackColor = true;
-            this.buttonParse.Click += new System.EventHandler(this.buttonParse_Click);
             // 
             // groupBox
             // 
             this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox.Controls.Add(this.parseButton);
-            this.groupBox.Controls.Add(this.buttonExit);
             this.groupBox.Controls.Add(this.textBoxToParse);
             this.groupBox.Controls.Add(this.buttonParse);
             this.groupBox.Controls.Add(this.listView);
@@ -210,46 +184,33 @@
             this.groupBox.TabIndex = 9;
             this.groupBox.TabStop = false;
             // 
-            // buttonExit
+            // buttonParse
             // 
-            this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonExit.Location = new System.Drawing.Point(911, 12);
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(75, 23);
-            this.buttonExit.TabIndex = 9;
-            this.buttonExit.Text = "Exit";
-            this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.exitButton_Click);
+            this.buttonParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonParse.Location = new System.Drawing.Point(825, 12);
+            this.buttonParse.Name = "buttonParse";
+            this.buttonParse.Size = new System.Drawing.Size(75, 23);
+            this.buttonParse.TabIndex = 8;
+            this.buttonParse.Text = "Parse";
+            this.buttonParse.UseVisualStyleBackColor = true;
+            this.buttonParse.Click += new System.EventHandler(this.buttonParse_Click);
             // 
-            // parseButton
-            // 
-            this.parseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.parseButton.Location = new System.Drawing.Point(830, 12);
-            this.parseButton.Name = "parseButton";
-            this.parseButton.Size = new System.Drawing.Size(75, 23);
-            this.parseButton.TabIndex = 10;
-            this.parseButton.Text = "Parse";
-            this.parseButton.UseVisualStyleBackColor = true;
-            this.parseButton.Click += new System.EventHandler(this.buttonParse_Click);
-            // 
-            // BrowserForm
+            // MoovParser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 622);
             this.Controls.Add(this.groupBox);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStripContainer);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "BrowserForm";
-            this.Text = "BrowserForm";
+            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.Name = "MoovParser";
+            this.Text = "MoovParser";
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.ContentPanel.PerformLayout();
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -265,10 +226,7 @@
         private System.Windows.Forms.ColumnHeader Album;
         private System.Windows.Forms.ColumnHeader Duration;
         private System.Windows.Forms.TextBox textBoxToParse;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonParse;
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.Button parseButton;
-        private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Button buttonParse;
     }
 }

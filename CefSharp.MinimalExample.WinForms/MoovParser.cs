@@ -1,21 +1,17 @@
-﻿using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using System;
+﻿using AngleSharp.Html.Dom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CefSharp.MinimalExample.WinForms
+namespace MoovParserApp
 {
     class MoovParser<T> where T : class
     {
-        public List<Song> ParseAsync(IHtmlDocument document)
+        public List<Song> Parse(IHtmlDocument document)
         {
             var items = document.QuerySelectorAll("div.l-r").Select(x => new Song()
             {

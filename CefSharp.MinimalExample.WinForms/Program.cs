@@ -2,12 +2,13 @@
 //
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
+using CefSharp;
 using CefSharp.WinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace CefSharp.MinimalExample.WinForms
+namespace MoovParserApp
 {
     public class Program
     {
@@ -49,8 +50,8 @@ namespace CefSharp.MinimalExample.WinForms
             //Perform dependency check to make sure all relevant resources are in our output directory.
             Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
 
-            var browser = new BrowserForm();
-            Application.Run(browser);
+            var parser = new MoovParser();
+            Application.Run(parser);
 
             return 0;
         }

@@ -2,6 +2,7 @@
 //
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
+using CefSharp;
 using CefSharp.WinForms;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CefSharp.MinimalExample.WinForms
+namespace MoovParserApp
 {
-    public partial class BrowserForm : Form
+    public partial class MoovParser : Form
     {
         private ChromiumWebBrowser browser;
         ParserWorker<string[]> parser;
-        public BrowserForm()
+        public MoovParser()
         {
             InitializeComponent();
             parser = new ParserWorker<string[]>(new MoovParser<string[]>());
@@ -34,10 +35,12 @@ namespace CefSharp.MinimalExample.WinForms
         {
             browser = new ChromiumWebBrowser(textBoxToParse.Text);
             toolStripContainer.ContentPanel.Controls.Add(browser);
+
             parser.OnNewData += Parser_OnNewData;
             parser.OnNewImages += Parser_OnNewImages;
             parser.ParserError += Parser_Error;
-            await Task.Run(() => IsBrowserInitialized());
+
+            await Task.Run(() => IsBrowserInitialized()); //waiting for browser to initialize
             parser.Start(browser);
         }
 
@@ -72,7 +75,5 @@ namespace CefSharp.MinimalExample.WinForms
         {
             MessageBox.Show(arg2);
         }
-
-
     }
 }
