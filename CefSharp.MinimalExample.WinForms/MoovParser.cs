@@ -3,6 +3,7 @@ using AngleSharp.Html.Dom;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,55 +15,63 @@ namespace CefSharp.MinimalExample.WinForms
 {
     class MoovParser<T> where T : class
     {
-        IHtmlDocument document;
-        public List<Song> Parse(IHtmlDocument document)
+        public List<Song> ParseAsync(IHtmlDocument document)
         {
-            this.document = document;
             var items = document.QuerySelectorAll("div.l-r").Select(x => new Song()
             {
                 Name = x.QuerySelector(".song").TextContent,
                 Artist = x.QuerySelector(".artist").TextContent,
                 Album = x.QuerySelector(".album").TextContent,
-                Duration = TimeSpan.Parse(x.QuerySelector(".duration").TextContent)
+                Duration = x.QuerySelector(".duration").TextContent
             }).ToList();
 
             return items;
         }
 
-        public async Task<ImageList> ParseImagesAsync()
+        public bool TryParse(IHtmlDocument document)
         {
-            ImageList imageList = new ImageList();
-            imageList.ImageSize = new Size(64, 64);
-
-            var src = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)");
-            List<string> source = new List<string>();
-            foreach (IElement item in src)
+            if (document.QuerySelectorAll("div.l-r").Length != 0)
             {
-                source.Add(((IHtmlImageElement)item).Source);
+                return true;
             }
+            else return false;
+        }
 
-            List<Task<Bitmap>> bitmaps = new List<Task<Bitmap>>();
-            foreach (string link in source)
-            {
-                bitmaps.Add(Task.Run(() => GetImage(link))) ;
-            }
-            
-            Bitmap[] bmpList = await Task.WhenAll(bitmaps);
-            foreach (Bitmap bmp in bmpList)
-            {
+        public async Task<ImageList> ParseImagesAsync(IHtmlDocument document)
+        {
+            var imageList = new ImageList();
+
+            var source = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)")
+                .Select(x => ((IHtmlImageElement)x).Source)
+                .ToList();
+
+            await foreach (var bmp in GetImagesAsync(source))
                 imageList.Images.Add(bmp);
-            }
+
             return imageList;
         }
 
-        private Bitmap GetImage(string link)
+        private async IAsyncEnumerable<Bitmap> GetImagesAsync(IEnumerable<string> links)
         {
-                WebRequest request = WebRequest.Create(link);
-                WebResponse resp = request.GetResponse();
-                System.IO.Stream respStream = resp.GetResponseStream();
-                Bitmap bmp = new Bitmap(respStream);
-                respStream.Dispose();
-                return bmp;
+            foreach (var link in links)
+                yield return await GetImage(link);
+        }
+
+        private async Task<Bitmap> GetImage(string link)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(link);
+            request.ServicePoint.ConnectionLimit = 20;
+            request.Proxy = null;
+            request.Method = "GET";
+
+            WebResponse resp = await request.GetResponseAsync();
+            Stream respStream = resp.GetResponseStream();
+            var bmp = new Bitmap(respStream);
+
+            resp.Close();
+            respStream.Dispose();
+
+            return bmp;
         }
     }
 }

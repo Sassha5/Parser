@@ -7,17 +7,16 @@ namespace CefSharp.MinimalExample.WinForms
 {
     class Song
     {
-        //public Image Cover { get; set; }
         public string Name { get; set; }
         public string Album { get; set; }
         public string Artist { get; set; }
-        public TimeSpan Duration { get; set; }
+        public string Duration { get; set; }
 
         public Song() { }
  
         public string[] ToStringArray()
         {
-            return new string[] {Name, Artist, Album, Duration.ToString() };
+            return new string[] {Name, Artist, Album, Duration };
         }
     }
 }
