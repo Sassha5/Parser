@@ -27,7 +27,10 @@ namespace MoovParserApp
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            browser.Dispose();
+            if (browser != null)
+            {
+                browser.Dispose();
+            }
             Cef.Shutdown();
             Close();
         }

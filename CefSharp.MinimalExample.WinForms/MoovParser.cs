@@ -1,9 +1,12 @@
-﻿using AngleSharp.Html.Dom;
+﻿using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,15 +16,25 @@ namespace MoovParserApp
     {
         public List<Song> Parse(IHtmlDocument document)
         {
-            var items = document.QuerySelectorAll("div.l-r").Select(x => new Song()
-            {
-                Name = x.QuerySelector(".song").TextContent,
-                Artist = x.QuerySelector(".artist").TextContent,
-                Album = x.QuerySelector(".album").TextContent,
-                Duration = x.QuerySelector(".duration").TextContent
-            }).ToList();
+            List<IElement> items = document.QuerySelectorAll("div.l-r").ToList();
+            List<Song> songs = new List<Song>();
 
-            return items;
+            foreach (IElement element in items)
+            {
+                Song song = new Song();
+                song.Name = element.QuerySelector(".song").TextContent;
+                if (element.QuerySelector(".artist") != null) { song.Artist = element.QuerySelector(".artist").TextContent; }
+                else if (element.QuerySelector(".singer") != null) { song.Artist = element.QuerySelector(".singer").TextContent; }
+                if (element.QuerySelector(".album") != null) { song.Album = element.QuerySelector(".album").TextContent; }
+                else if (document.QuerySelector("div.name .title") != null) { song.Album = document.QuerySelector("div.name .title").TextContent; }
+                else song.Album = "Not found on this page";
+                song.Duration = element.QuerySelector(".duration").TextContent;
+                songs.Add(song);
+            }
+
+
+
+            return songs;
         }
 
         public bool TryParse(IHtmlDocument document)
@@ -37,10 +50,11 @@ namespace MoovParserApp
         {
             var imageList = new ImageList();
 
-            var source = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)")
+            List<string> source = document.QuerySelectorAll("div.l-r .cover img[src]:not(.play)")
                 .Select(x => ((IHtmlImageElement)x).Source)
                 .ToList();
 
+            
             await foreach (var bmp in GetImagesAsync(source))
                 imageList.Images.Add(bmp);
 
@@ -50,6 +64,7 @@ namespace MoovParserApp
         private async IAsyncEnumerable<Bitmap> GetImagesAsync(IEnumerable<string> links)
         {
             foreach (var link in links)
+                if(link.Contains("http"))
                 yield return await GetImage(link);
         }
 
