@@ -42,6 +42,7 @@ namespace MoovParserApp
             parser.OnNewData += Parser_OnNewData;
             parser.OnNewImages += Parser_OnNewImages;
             parser.ParserError += Parser_Error;
+            parser.OnDescription += Parser_OnDescription;
 
             await Task.Run(() => IsBrowserInitialized()); //waiting for browser to initialize
             parser.Start(browser);
@@ -58,21 +59,15 @@ namespace MoovParserApp
                 else Thread.Sleep(1000);
             }
         }
-
+        private void Parser_OnDescription(object arg1, string arg2)
+        {
+            textBoxDescription.Text = arg2;
+        }
         private void Parser_OnNewData(object arg1, List<Song> arg2)
         {
             for (int i = 0; i < arg2.Count; i++)
             {
-                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray()));
-            }
-            int offset = 0;
-            if (arg2[0].Name == "Description")
-            {
-                offset = 1;
-            }
-            for (int i = offset; i < arg2.Count - offset; i++)
-            {
-                listView.Items[i].ImageIndex = i;
+                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray(), i));
             }
             listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }

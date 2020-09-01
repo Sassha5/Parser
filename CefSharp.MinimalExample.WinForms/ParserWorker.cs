@@ -17,6 +17,7 @@ namespace MoovParserApp
         public event Action<object, List<Song>> OnNewData;
         public event Action<object, ImageList> OnNewImages;
         public event Action<object, string> ParserError;
+        public event Action<object, string> OnDescription;
 
         public ParserWorker(MoovParser<T> parser)
         {
@@ -46,6 +47,7 @@ namespace MoovParserApp
         {
             List<Song> result = Parser.Parse(document);
             OnNewData?.Invoke(this, result);
+            OnDescription?.Invoke(this, Parser.ParseDescription(document));
             ImageList imageList = await Parser.ParseImagesAsync(document);
             OnNewImages?.Invoke(this, imageList);
         }

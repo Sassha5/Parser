@@ -39,6 +39,7 @@
             this.Duration = new System.Windows.Forms.ColumnHeader();
             this.textBoxToParse = new System.Windows.Forms.TextBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.buttonParse = new System.Windows.Forms.Button();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.groupBox.SuspendLayout();
@@ -138,7 +139,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(12, 41);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(760, 508);
+            this.listView.Size = new System.Drawing.Size(592, 508);
             this.listView.TabIndex = 5;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.List;
@@ -174,6 +175,7 @@
             this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox.Controls.Add(this.textBoxDescription);
             this.groupBox.Controls.Add(this.textBoxToParse);
             this.groupBox.Controls.Add(this.buttonParse);
             this.groupBox.Controls.Add(this.listView);
@@ -183,6 +185,14 @@
             this.groupBox.Size = new System.Drawing.Size(784, 561);
             this.groupBox.TabIndex = 9;
             this.groupBox.TabStop = false;
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Location = new System.Drawing.Point(611, 42);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(161, 507);
+            this.textBoxDescription.TabIndex = 9;
             // 
             // buttonParse
             // 
@@ -228,5 +238,6 @@
         private System.Windows.Forms.TextBox textBoxToParse;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Button buttonParse;
+        private System.Windows.Forms.TextBox textBoxDescription;
     }
 }
