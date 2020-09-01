@@ -19,6 +19,15 @@ namespace MoovParserApp
             List<IElement> items = document.QuerySelectorAll("div.l-r").ToList();
             List<Song> songs = new List<Song>();
 
+            IElement description = document.QuerySelector("div.moduleText div.title");
+            if (description != null)
+            {
+                Song desc = new Song();
+                desc.Name = "Description";
+                desc.Artist = description.TextContent;
+                songs.Add(desc);
+            }
+
             foreach (IElement element in items)
             {
                 Song song = new Song();
@@ -31,8 +40,6 @@ namespace MoovParserApp
                 song.Duration = element.QuerySelector(".duration").TextContent;
                 songs.Add(song);
             }
-
-
 
             return songs;
         }

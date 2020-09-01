@@ -63,7 +63,16 @@ namespace MoovParserApp
         {
             for (int i = 0; i < arg2.Count; i++)
             {
-                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray(), i));
+                listView.Items.Add(new ListViewItem(arg2[i].ToStringArray()));
+            }
+            int offset = 0;
+            if (arg2[0].Name == "Description")
+            {
+                offset = 1;
+            }
+            for (int i = offset; i < arg2.Count - offset; i++)
+            {
+                listView.Items[i].ImageIndex = i;
             }
             listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
